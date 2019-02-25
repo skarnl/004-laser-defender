@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyPathing : MonoBehaviour
 {
-    [SerializeField] List<GameObject> waypoints;
-
-    GameObject targetWaypoint;
-    int currentWaypointIndex = 0;
+    List<Transform> waypoints;
+    Transform targetWaypoint;
+    int currentWaypointIndex = 1;
+    float speed = 5f;
 
     void Start() {
         targetWaypoint = waypoints[currentWaypointIndex];
@@ -28,10 +28,17 @@ public class EnemyPathing : MonoBehaviour
         }
 
         if (targetWaypoint) {
-            float speed = 5f;
-
             float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.transform.position, step);
+            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, step);
         }
+    }
+
+    public void SetWaypoints(List<Transform> waypoints) {
+        this.waypoints = waypoints;
+        targetWaypoint = waypoints[currentWaypointIndex];
+    }
+
+    public void SetMovementSpeed(float speed) {
+        this.speed = speed;
     }
 }
