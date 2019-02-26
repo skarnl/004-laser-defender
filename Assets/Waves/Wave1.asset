@@ -18,5 +18,5 @@ MonoBehaviour:
     type: 3}
   timeBetweenWaves: 1.2
   randomFactor: 0.6
-  numberOfEnemiesToSpawn: 8
-  movementSpeed: 3
+  numberOfEnemiesToSpawn: 5
+  movementSpeed: 8
