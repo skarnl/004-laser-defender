@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3713102124287307458}
   - component: {fileID: 603897921}
   - component: {fileID: 7535438194483853697}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -110,7 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a995be9fe798d408d89b0674ab759ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootInterfal: 1.1
+  minShootInterfal: 0.2
+  maxShootInterfal: 1.5
   projectilePrefab: {fileID: 8924214360753031584, guid: eff201ffd5a1a407aab01edc64f2d69f,
     type: 3}
 --- !u!1 &6689023294261416452
@@ -123,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8336057026585360078}
   - component: {fileID: 8382479867347546746}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: spaceShips_007
   m_TagString: Untagged
   m_Icon: {fileID: 0}

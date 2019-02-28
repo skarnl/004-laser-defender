@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2951490934087145071}
   - component: {fileID: 2026001553161987495}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: laserBlue02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 673195976044644822}
   - component: {fileID: 2171169053943466328}
   - component: {fileID: 4182463721015214571}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Laser
   m_TagString: Laser
   m_Icon: {fileID: 0}
@@ -191,6 +191,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  ignoredTags:
-  - EnemyLaser
-  - Player
