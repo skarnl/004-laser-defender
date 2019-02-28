@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 6906931502271375247}
   - component: {fileID: 1797086710539758527}
   - component: {fileID: 673195976044644822}
+  - component: {fileID: 2171169053943466328}
+  - component: {fileID: 4182463721015214571}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Laser
@@ -126,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 767
+  direction: 0
 --- !u!50 &1797086710539758527
 Rigidbody2D:
   serializedVersion: 4
@@ -163,3 +166,31 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.2, y: 0.46}
   m_Direction: 0
+--- !u!114 &2171169053943466328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9151587361859845081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa171e5ff42db4a68b21a4b72117f440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4182463721015214571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9151587361859845081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a67f95b90964161a91dacbb22a6149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 100
+  ignoredTags:
+  - EnemyLaser
+  - Player

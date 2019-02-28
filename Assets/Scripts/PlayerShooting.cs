@@ -15,6 +15,8 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void CheckInputForFiring() {
+        print("CheckInputForFiring");
+
         if (Input.GetButtonDown("Fire1")) {
             firingCoroutine = StartCoroutine(ShootLaserAfterWait());
         }
@@ -28,6 +30,8 @@ public class PlayerShooting : MonoBehaviour
     }
 
     IEnumerator ShootLaserAfterWait() {
+        print("ShootLaserAfterWait");
+
         while (Input.GetButton("Fire1")) {
             ShootLaser();
             yield return new WaitForSeconds(firingRate);

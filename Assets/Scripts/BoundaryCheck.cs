@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoundaryCheck : MonoBehaviour
+public class BoundaryCheck : MonoBehaviour
 {
     void Update()
     {
@@ -12,6 +12,6 @@ public class EnemyBoundaryCheck : MonoBehaviour
     }
 
     bool CheckIfOutsideScreen() {
-        return transform.position.x < 0 || transform.position.x > 10f || transform.position.y < 0 || transform.position.y > 20f;
+        return transform.position.x < 0 || transform.position.x > 20f || transform.position.y < 0 || transform.position.y > 20f;
     }
 }

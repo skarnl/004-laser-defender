@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7682996524537154720}
   - component: {fileID: 3713102124287307458}
   - component: {fileID: 603897921}
+  - component: {fileID: 7535438194483853697}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,9 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c66487d6c80e41fd98e881c80490cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 10
-  hitPrefab: {fileID: 4451270538265489662, guid: 2f480b17c2cd24dfabe4b8091f9e9391,
-    type: 3}
+  healthPoints: 300
 --- !u!58 &3713102124287307458
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -99,6 +98,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7535438194483853697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159393386174422112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a995be9fe798d408d89b0674ab759ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootInterfal: 1.1
+  projectilePrefab: {fileID: 8924214360753031584, guid: eff201ffd5a1a407aab01edc64f2d69f,
+    type: 3}
 --- !u!1 &6689023294261416452
 GameObject:
   m_ObjectHideFlags: 0
