@@ -60,7 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c66487d6c80e41fd98e881c80490cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 300
+  healthPoints: 100
+  explosionPrefab: {fileID: 3464011095738935365, guid: c445b8cb1c3e1475b960e935fac7b1ae,
+    type: 3}
 --- !u!58 &3713102124287307458
 CircleCollider2D:
   m_ObjectHideFlags: 0
