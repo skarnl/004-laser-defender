@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WaveConfiguration", menuName = "Configuration/Wave", order = 1)]
 public class WaveConfiguration : ScriptableObject
 {
+    [SerializeField] string title;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject pathPrefab;
     [SerializeField] float timeBetweenWaves = 1f;
@@ -40,5 +41,9 @@ public class WaveConfiguration : ScriptableObject
 
     public float GetMovementSpeed() {
         return movementSpeed;
+    }
+
+    public string GetTitle() {
+        return title;
     }
 }

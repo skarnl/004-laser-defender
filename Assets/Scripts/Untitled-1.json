@@ -1,0 +1,107 @@
+{
+    "start": {
+        "linkId": "-54351349",
+        "mappedPosition": {
+            "latitude": 52.0104897,
+            "longitude": 4.3581712
+        },
+    },
+    "end": {
+        "linkId": "-54351574",
+        "mappedPosition": {
+            "latitude": 52.0095134,
+            "longitude": 4.3557894
+        },
+    },
+    "maneuver": [
+        {
+            "position": {
+                "latitude": 52.0104897,
+                "longitude": 4.3581712
+            },
+            "instruction": "Head toward <span class=\"toward_street\">Oude Delft</span> on <span class=\"street\">Peperstraat</span>. <span class=\"distance-description\">Go for <span class=\"length\">92 m</span>.</span>",
+            "travelTime": 18,
+            "length": 92,
+            "id": "M3",
+            "_type": "PrivateTransportManeuverType"
+        },
+        {
+            "position": {
+                "latitude": 52.0100927,
+                "longitude": 4.3570125
+            },
+            "instruction": "Continue on <span class=\"next-street\">Binnenwatersloot</span>. <span class=\"distance-description\">Go for <span class=\"length\">106 m</span>.</span>",
+            "travelTime": 17,
+            "length": 106,
+            "id": "M4",
+            "_type": "PrivateTransportManeuverType"
+        },
+        {
+            "position": {
+                "latitude": 52.0095134,
+                "longitude": 4.3557894
+            },
+            "instruction": "Arrive at <span class=\"street\">Binnenwatersloot</span>.",
+            "travelTime": 5,
+            "length": 0,
+            "id": "M5",
+            "_type": "PrivateTransportManeuverType"
+        }
+    ],
+    "link": [
+        {
+            "linkId": "-54351413",
+            "shape": [
+                52.0104897,
+                4.3581712,
+                52.0102108,
+                4.3572593
+            ],
+            "remainTime": 9746,
+            "speedLimit": 8.333334,
+            "functionalClass": 5,
+            "_type": "PrivateTransportLinkType"
+        },
+        {
+            "linkId": "-55062470",
+            "shape": [
+                52.0102108,
+                4.3572593,
+                52.0101357,
+                4.3571413,
+                52.0100927,
+                4.3570125
+            ],
+            "remainTime": 9733,
+            "speedLimit": 8.333334,
+            "functionalClass": 5,
+            "_type": "PrivateTransportLinkType"
+        },
+        {
+            "linkId": "-54351574",
+            "shape": [
+                52.0100927,
+                4.3570125,
+                52.0095134,
+                4.3557894
+            ],
+            "remainTime": 9728,
+            "speedLimit": 8.333334,
+            "functionalClass": 5,
+            "_type": "PrivateTransportLinkType"
+        },
+        {
+            "linkId": "-54351574",
+            "shape": [
+                52.0095134,
+                4.3557894,
+                52.0095134,
+                4.3557894
+            ],
+            "remainTime": 9711,
+            "speedLimit": 8.333334,
+            "functionalClass": 5,
+            "_type": "PrivateTransportLinkType"
+        }
+    ]
+},

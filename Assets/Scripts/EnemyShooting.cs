@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class EnemyShooting : MonoBehaviour
 {
     [SerializeField] float minShootInterfal = 0.2f;
     [SerializeField] float maxShootInterfal = 1.5f;
     [SerializeField] GameObject projectilePrefab;
+
+    [Header("Sound effects")]
+    [SerializeField] AudioClip shootingSound;
+    [SerializeField] float shootingSoundVolume = 0.5f;
 
     void Start() {
         StartCoroutine(Shoot());
@@ -15,6 +20,10 @@ public class EnemyShooting : MonoBehaviour
     IEnumerator Shoot() {
         while(true) {
             Instantiate(projectilePrefab, transform.position, transform.rotation);
+            
+            if (shootingSound) {
+                AudioSource.PlayClipAtPoint(shootingSound, Camera.main.transform.position, shootingSoundVolume);
+            }
 
             yield return new WaitForSeconds(Random.Range(minShootInterfal, maxShootInterfal));
         }
