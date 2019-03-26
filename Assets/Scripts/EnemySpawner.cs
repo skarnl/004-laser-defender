@@ -1,6 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+struct ActiveWave {
+    public WaveConfiguration waveConfiguration;
+    public int enemiesToSpawn;
+    public float lastSpawnTime;
+
+    public ActiveWave(WaveConfiguration waveConfiguration) {
+        this.waveConfiguration = waveConfiguration;
+        this.enemiesToSpawn = waveConfiguration.GetNumberOfEnemiesToSpawn();
+        this.lastSpawnTime = 0;
+    }
+}
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -8,35 +21,47 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] bool looping = true;
     [SerializeField] int wavesActiveSimultaneously = 2;
 
+    List<ActiveWave> activeWaves = new List<ActiveWave>();
+
     IEnumerator Start() {
-        do {
-            yield return StartCoroutine(SpawnAllWaves());
-        } while (looping);
-    }
-
-    private IEnumerator SpawnAllWaves() {
-        var shuffledWaveConfiguration = new List<WaveConfiguration>(waveConfigurations);
-
-        // shuffle the order of wave configs
-        for (int i = 0; i < shuffledWaveConfiguration.Count; i++) {
-            WaveConfiguration temp = shuffledWaveConfiguration[i];
-            int randomIndex = Random.Range(i, shuffledWaveConfiguration.Count);
-            shuffledWaveConfiguration[i] = shuffledWaveConfiguration[randomIndex];
-            shuffledWaveConfiguration[randomIndex] = temp;
-        }
-
-        var rest = shuffledWaveConfiguration.Count % wavesActiveSimultaneously;
-
-        // add some more if the length of the list isn't devidable by the wavesActiveSimultaneously
-        if (rest != 0) {
-            for (int i = 0; i < (wavesActiveSimultaneously - rest); i++) {   
-                shuffledWaveConfiguration.Add(shuffledWaveConfiguration[i]);
+        // fill the activeWave List with the needed waves
+        if (activeWaves.Count < wavesActiveSimultaneously) {
+            for (int i = activeWaves.Count; i < wavesActiveSimultaneously; i++) {
+                activeWaves.Add( MakeActiveWave(GetRandomWave()) ) ;
             }
         }
 
-        // var subList = shuffledWaveConfiguration.GetRange(0, wavesActiveSimultaneously);
+        activeWaves.Sort( delegate(ActiveWave x, ActiveWave y) {
+            if (x.lastSpawnTime == 0) return -1;
+            if (y.lastSpawnTime == 0) return -1;
+            
+            var nextSpawnTimeX = x.lastSpawnTime + x.waveConfiguration.GetTimeBetweenWaves();
+            var nextSpawnTimeY = y.lastSpawnTime + y.waveConfiguration.GetTimeBetweenWaves();
 
+            if (nextSpawnTimeX < nextSpawnTimeY) return -1;
+            if (nextSpawnTimeX > nextSpawnTimeY) return 1;
+            
+            return 0;
+        });
 
+        do {
+            yield return StartCoroutine(SpawnActiveWave());
+        } while (looping);
+    }
+
+    private WaveConfiguration GetRandomWave() {
+        return waveConfigurations[Random.Range(0, waveConfigurations.Count)];
+    }
+
+    private ActiveWave MakeActiveWave(WaveConfiguration waveConfiguration) {
+        return new ActiveWave(waveConfiguration);
+    }
+
+    private IEnumerator SpawnActiveWave() {
+        //yield de kortste / die aan de beurt is
+
+        //check hoeveel enemies er afgespeeld moesten worden, als ze allemaal geweest zijn:
+        //    verwijder dan de activeWave uit de lijst
 
         /*
             pak wavesActiveSimultaneously (bijvoorbeeld 2) keer de waves eruit
@@ -79,24 +104,36 @@ public class EnemySpawner : MonoBehaviour
             19
             20
          */
+        var currentActiveWave = activeWaves.First();
 
+        SpawnEnemy(currentActiveWave.waveConfiguration);
 
+        currentActiveWave.enemiesToSpawn -= 1;
+        currentActiveWave.lastSpawnTime = Time.time;
 
-        for( int waveIndex = 0; waveIndex < shuffledWaveConfiguration.Count; waveIndex += 2 ) {
-            
-            // yield return null;
-            yield return StartCoroutine(SpawnAllEnemiesInWave(shuffledWaveConfiguration[waveIndex]));
+        if (currentActiveWave.enemiesToSpawn == 0) {
+            activeWaves.RemoveAt(0);
+
+            activeWaves.Add( MakeActiveWave(GetRandomWave()) ) ;
         }
-    }
 
-    private IEnumerator SpawnAllEnemiesInWave(WaveConfiguration waveConfiguration) {
-        yield return null;
-        
-        for (int enemyCount = 0; enemyCount < waveConfiguration.GetNumberOfEnemiesToSpawn(); enemyCount++) {
-            SpawnEnemy(waveConfiguration);
+        //DRYYYYY !!!
+        activeWaves.Sort( delegate(ActiveWave x, ActiveWave y) {
+            if (x.lastSpawnTime == 0) return -1;
+            if (y.lastSpawnTime == 0) return -1;
             
-            yield return new WaitForSeconds(waveConfiguration.GetTimeBetweenWaves() + Random.Range(waveConfiguration.GetRandomFactor() * -1, waveConfiguration.GetRandomFactor()));
-        }
+            var nextSpawnTimeX = x.lastSpawnTime + x.waveConfiguration.GetTimeBetweenWaves();
+            var nextSpawnTimeY = y.lastSpawnTime + y.waveConfiguration.GetTimeBetweenWaves();
+
+            if (nextSpawnTimeX < nextSpawnTimeY) return -1;
+            if (nextSpawnTimeX > nextSpawnTimeY) return 1;
+            
+            return 0;
+        });
+
+        var nextActiveWave = activeWaves.First();
+            
+        yield return new WaitForSeconds(nextActiveWave.waveConfiguration.GetTimeBetweenWaves() + Random.Range(nextActiveWave.waveConfiguration.GetRandomFactor() * -1, nextActiveWave.waveConfiguration.GetRandomFactor()));
     }
 
     private void SpawnEnemy(WaveConfiguration waveConfiguration) {
