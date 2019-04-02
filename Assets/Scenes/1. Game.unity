@@ -1012,6 +1012,11 @@ PrefabInstance:
       propertyPath: damageImage
       value: 
       objectReference: {fileID: 1961572855}
+    - target: {fileID: 6813088264412758179, guid: d9629c411db8d4766b084540b71c9836,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9629c411db8d4766b084540b71c9836, type: 3}
 --- !u!1001 &6625388884720714412
@@ -1158,7 +1163,7 @@ PrefabInstance:
     - target: {fileID: 1049125190592620580, guid: d9d9430d7fe4841a799657101a9b2e16,
         type: 3}
       propertyPath: waveConfigurations.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1049125190592620580, guid: d9d9430d7fe4841a799657101a9b2e16,
         type: 3}
@@ -1184,5 +1189,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2af943024acb440559948be406d99c43,
         type: 2}
+    - target: {fileID: 1049125190592620580, guid: d9d9430d7fe4841a799657101a9b2e16,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049125190592620580, guid: d9d9430d7fe4841a799657101a9b2e16,
+        type: 3}
+      propertyPath: wavesActiveSimultaneously
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d9430d7fe4841a799657101a9b2e16, type: 3}

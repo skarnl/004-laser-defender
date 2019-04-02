@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-struct ActiveWave {
+class ActiveWave {
     public WaveConfiguration waveConfiguration;
     public int enemiesToSpawn;
     public float lastSpawnTime;
@@ -12,6 +12,10 @@ struct ActiveWave {
         this.waveConfiguration = waveConfiguration;
         this.enemiesToSpawn = waveConfiguration.GetNumberOfEnemiesToSpawn();
         this.lastSpawnTime = 0;
+    }
+
+    public override string ToString() {
+        return this.waveConfiguration.GetTitle();
     }
 }
 
@@ -32,17 +36,16 @@ public class EnemySpawner : MonoBehaviour
         }
 
         activeWaves.Sort( delegate(ActiveWave x, ActiveWave y) {
-            if (x.lastSpawnTime == 0) return -1;
-            if (y.lastSpawnTime == 0) return -1;
-            
-            var nextSpawnTimeX = x.lastSpawnTime + x.waveConfiguration.GetTimeBetweenWaves();
-            var nextSpawnTimeY = y.lastSpawnTime + y.waveConfiguration.GetTimeBetweenWaves();
+            var nextSpawnTimeX = x.lastSpawnTime + x.waveConfiguration.GetTimeBetweenSpawns();
+            var nextSpawnTimeY = y.lastSpawnTime + y.waveConfiguration.GetTimeBetweenSpawns();
 
             if (nextSpawnTimeX < nextSpawnTimeY) return -1;
             if (nextSpawnTimeX > nextSpawnTimeY) return 1;
             
             return 0;
         });
+
+        PrintDebug();
 
         do {
             yield return StartCoroutine(SpawnActiveWave());
@@ -58,11 +61,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private IEnumerator SpawnActiveWave() {
-        //yield de kortste / die aan de beurt is
-
-        //check hoeveel enemies er afgespeeld moesten worden, als ze allemaal geweest zijn:
-        //    verwijder dan de activeWave uit de lijst
-
         /*
             pak wavesActiveSimultaneously (bijvoorbeeld 2) keer de waves eruit
             loop door de waves, pak steeds uit de waveConfig die aan de beurt is een enemy en spawn die
@@ -81,11 +79,11 @@ public class EnemySpawner : MonoBehaviour
             wat doen we als ze tegelijk zijn? beiden spawnen? zou wel gaafste zijn
             dus eigenlijk gewoon kijken wie er - als de tijd voorbij is - op 0 staat... 
 
-            secondes:
-            1 spawn waveConfig1 - nu moeten we wachten tot 10 - 0 = 10 tot waveConfig1, maar 3 tot waveConfig2, dus die komt eerder
+            T (secondes)
+            1 spawn waveConfig1 (X) - nu moeten we wachten tot 10 - 0 = 10 tot waveConfig1, maar 3 tot waveConfig2, dus die komt eerder
             2 
             3 
-            4 spawn waveConfig2 - nu moeten we nog 10 - 3 = 7 wachten tot waveConfig1, maar 3 tot waveConfig2, dus die komt eerder
+            4 spawn waveConfig2 - nu moeten we nog 10 - (T-X) = 7 wachten tot waveConfig1, maar 3 tot waveConfig2, dus die komt eerder
             5 
             6 
             7 spawn waveConfig2 - nu moeten we nog 10 - 6 = 4 wachten tot waveConfig1, maar 3 tot waveConfig2, dus die komt eerder 
@@ -105,25 +103,25 @@ public class EnemySpawner : MonoBehaviour
             20
          */
         var currentActiveWave = activeWaves.First();
+        
+        print("CURRENT:                                         " + currentActiveWave);
 
         SpawnEnemy(currentActiveWave.waveConfiguration);
 
         currentActiveWave.enemiesToSpawn -= 1;
         currentActiveWave.lastSpawnTime = Time.time;
 
-        if (currentActiveWave.enemiesToSpawn == 0) {
-            activeWaves.RemoveAt(0);
+        print("ENEMIES LEFT: " + currentActiveWave.enemiesToSpawn);
 
-            activeWaves.Add( MakeActiveWave(GetRandomWave()) ) ;
+        if (currentActiveWave.enemiesToSpawn == 0) {
+            print("REMOVE:                   " + currentActiveWave);
+            activeWaves.RemoveAt(0);
         }
 
         //DRYYYYY !!!
         activeWaves.Sort( delegate(ActiveWave x, ActiveWave y) {
-            if (x.lastSpawnTime == 0) return -1;
-            if (y.lastSpawnTime == 0) return -1;
-            
-            var nextSpawnTimeX = x.lastSpawnTime + x.waveConfiguration.GetTimeBetweenWaves();
-            var nextSpawnTimeY = y.lastSpawnTime + y.waveConfiguration.GetTimeBetweenWaves();
+            var nextSpawnTimeX = x.lastSpawnTime + x.waveConfiguration.GetTimeBetweenSpawns();
+            var nextSpawnTimeY = y.lastSpawnTime + y.waveConfiguration.GetTimeBetweenSpawns();
 
             if (nextSpawnTimeX < nextSpawnTimeY) return -1;
             if (nextSpawnTimeX > nextSpawnTimeY) return 1;
@@ -132,8 +130,18 @@ public class EnemySpawner : MonoBehaviour
         });
 
         var nextActiveWave = activeWaves.First();
-            
-        yield return new WaitForSeconds(nextActiveWave.waveConfiguration.GetTimeBetweenWaves() + Random.Range(nextActiveWave.waveConfiguration.GetRandomFactor() * -1, nextActiveWave.waveConfiguration.GetRandomFactor()));
+
+        yield return new WaitForSeconds(nextActiveWave.waveConfiguration.GetTimeBetweenSpawns());
+
+        if (activeWaves.Count < wavesActiveSimultaneously) {
+            for (int i = activeWaves.Count; i < wavesActiveSimultaneously; i++) {
+                var wave = MakeActiveWave(GetRandomWave());
+
+                activeWaves.Add( wave ) ;
+
+                print("ADD:                 " + wave);
+            }
+        }
     }
 
     private void SpawnEnemy(WaveConfiguration waveConfiguration) {
@@ -143,5 +151,14 @@ public class EnemySpawner : MonoBehaviour
         EnemyPathing enemyController = enemy.GetComponent<EnemyPathing>();
         enemyController.SetWaypoints(waypoints);
         enemyController.SetMovementSpeed(waveConfiguration.GetMovementSpeed());
+    }
+
+    private void PrintDebug() {
+        print("========  ActiveWave configuratie ========= ");
+        foreach (var item in activeWaves)
+        {
+            print(item.waveConfiguration.GetTitle() + " | " + item.lastSpawnTime + " | " + item.waveConfiguration.GetTimeBetweenSpawns() + " | " + (item.lastSpawnTime + item.waveConfiguration.GetTimeBetweenSpawns()) );
+        }
+        print("============================================");
     }
 }
