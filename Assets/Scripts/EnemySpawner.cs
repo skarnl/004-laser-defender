@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,9 +22,11 @@ class ActiveWave {
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] List<WaveConfiguration> waveConfigurations;
-    [SerializeField] bool looping = true;
+    [SerializeField] List<GameObject> enemyPrefabs;
+    [SerializeField] List<GameObject> pathPrefabs;
+    List<WaveConfiguration> waveConfigurations;
     [SerializeField] int wavesActiveSimultaneously = 2;
+    [SerializeField] bool looping = true;
 
     List<ActiveWave> activeWaves = new List<ActiveWave>();
 
@@ -53,7 +56,19 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private WaveConfiguration GetRandomWave() {
-        return waveConfigurations[Random.Range(0, waveConfigurations.Count)];
+        var waveConfig = new WaveConfiguration();
+
+        var random = new System.Random();
+
+        waveConfig.title = "wave config";
+        waveConfig.enemyPrefab = enemyPrefabs[random.Next(enemyPrefabs.Count)];
+        waveConfig.pathPrefab = pathPrefabs[random.Next(pathPrefabs.Count)];
+        waveConfig.timeBetweenEnemySpawns = UnityEngine.Random.Range(0.4f, 1.6f);
+        waveConfig.randomFactor = UnityEngine.Random.Range(0.05f, 0.2f);
+        waveConfig.movementSpeed = UnityEngine.Random.Range(4f, 7f);
+        waveConfig.numberOfEnemiesToSpawn = UnityEngine.Random.Range(3, 10);
+
+        return waveConfig;
     }
 
     private ActiveWave MakeActiveWave(WaveConfiguration waveConfiguration) {
