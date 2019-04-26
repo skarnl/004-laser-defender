@@ -41,7 +41,7 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void ShootLaser() {
-        Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y, 1), transform.rotation);
+        Instantiate(laserPrefab, transform.position, transform.rotation);
 
         audioSource.PlayOneShot(shootingSound, shootingSoundVolume);
     }
