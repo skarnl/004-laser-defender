@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Singleton : MonoBehaviour
 {
-    void Awake() {
+    public virtual void Awake() {
         if (FindObjectsOfType(GetType()).Length > 1) {
             Destroy(gameObject);
         } else {
