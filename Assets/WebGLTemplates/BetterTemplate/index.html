@@ -5,16 +5,51 @@
     <meta charset="utf-8">
     <title>%UNITY_WEB_NAME%</title>
     <style>
-      body { margin: 0; }
-      #gameContainer { width: 56vw; height: 100vh; }
-      canvas { width: 100%; height: 100%; }
+      body {
+        margin: 0;
+        background-color: #000;
+      }
+
+      .wrapper {
+        width: 56vw;
+        height: 100vh;
+        margin: auto;
+      }
+
+      #unityContainer,
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
     </style>
     <script src="%UNITY_WEBGL_LOADER_URL%"></script>
     <script> var unityInstance = UnityLoader.instantiate("unityContainer", "%UNITY_WEBGL_BUILD_URL%");</script>
   </head>
 
   <body>
-    <div id="unityContainer"></div>
+    <div class="wrapper  wrapper-js">
+        <div id="unityContainer"></div>
+    </div>
+
+    <script>
+        function scaleGame() {
+          var wrapper = document.querySelector('.wrapper-js');
+
+          var targetHeight = (window.innerHeight - 10);
+          var targetWidth = targetHeight * 0.5625;
+
+          if (targetWidth > window.innerWidth) {
+             targetWidth = window.innerWidth;
+             targetHeight = targetWidth / 0.5625;
+          }
+
+          wrapper.style.height = targetHeight + "px";
+          wrapper.style.width = targetWidth + "px";
+        }
+
+        window.onresize = scaleGame;
+        scaleGame();
+    </script>
   </body>
 
 </html>
