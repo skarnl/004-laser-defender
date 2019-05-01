@@ -6,6 +6,7 @@ public class GameSession : Singleton
 {
     int score = 0;
     int health = 200;
+    State gameState;
 
     public void AddPointsToScore(int pointsToAdd) {
         score += pointsToAdd;
@@ -25,5 +26,13 @@ public class GameSession : Singleton
 
     public void Reset() {
         Destroy(gameObject);
+    }
+
+    public State GetState() {
+        return gameState;
+    }
+
+    public void SetState(State state) {
+        gameState = state;
     }
 }
