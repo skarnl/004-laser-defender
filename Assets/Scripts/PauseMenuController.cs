@@ -66,7 +66,7 @@ public class PauseMenuController : MonoBehaviour
     }
 
     private IEnumerator SpeedUp() {
-        float duration = 0.3f;
+        float duration = 0.2f;
         float steps = 10f;
         float increasePerStep = 1/steps;
         
