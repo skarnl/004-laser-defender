@@ -25,6 +25,7 @@ public class GameSession : Singleton
     }
 
     public void Reset() {
+        Time.timeScale = 1;
         Destroy(gameObject);
     }
 
