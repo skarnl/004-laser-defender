@@ -9,7 +9,7 @@ public class BackgroundMusic : Singleton
 
         AudioSource audioSource = GetComponent<AudioSource>();
         
-        AudioClip audioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("background_music.ogg");
+        AudioClip audioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("background_music");
 
         if (audioClip) {
             audioSource.clip = audioClip;

@@ -16,6 +16,14 @@ public class PlayerShooting : MonoBehaviour
     Coroutine firingCoroutine;
     AudioSource audioSource;
 
+    void Awake() {
+        AudioClip loadedAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("player_shoot");
+
+        if (loadedAudioClip) {
+            shootingSound = loadedAudioClip;
+        }
+    }
+
     void Start() {
         audioSource = GetComponent<AudioSource>();
     }

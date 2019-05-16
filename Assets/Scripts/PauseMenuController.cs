@@ -2,12 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PauseMenuController : MonoBehaviour
 {
     [SerializeField]
     private GameObject pauseMenu;
     private GameSession gameSession;
     private Coroutine currentCoroutine;
+
+    AudioClip slowDownClip;
+    AudioClip speedUpClip;
+
+    void Awake() {
+        AudioLoader audioLoader = FindObjectOfType<AudioLoader>();
+
+        AudioClip loadedSlowdownAudioClip = audioLoader.GetAudioClipByName("slow_down");
+
+        if (loadedSlowdownAudioClip) {
+            slowDownClip = loadedSlowdownAudioClip;
+        }
+
+        AudioClip loadedSpeedupAudioClip = audioLoader.GetAudioClipByName("speed_up");
+
+        if (loadedSpeedupAudioClip) {
+            speedUpClip = loadedSpeedupAudioClip;
+        }
+    }
 
     void Start() {
         gameSession = FindObjectOfType<GameSession>();
@@ -38,6 +58,9 @@ public class PauseMenuController : MonoBehaviour
         if (currentCoroutine != null) {
             StopCoroutine(currentCoroutine);
         }
+
+        AudioSource.PlayClipAtPoint(slowDownClip, Camera.main.transform.position);
+
         currentCoroutine = StartCoroutine(SlowDown());
     }
 
@@ -45,6 +68,9 @@ public class PauseMenuController : MonoBehaviour
         if (currentCoroutine != null) {
             StopCoroutine(currentCoroutine);
         }
+
+        AudioSource.PlayClipAtPoint(speedUpClip, Camera.main.transform.position);
+
         currentCoroutine = StartCoroutine(SpeedUp());
     }
 

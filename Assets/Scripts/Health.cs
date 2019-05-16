@@ -10,9 +10,9 @@ public class Health : MonoBehaviour
     [SerializeField] float explosionDuration = 2f;
     
     [Header("Sound effects")]
-    [SerializeField] AudioClip hitSound;
+    [SerializeField] protected AudioClip hitSound;
     [SerializeField] float hitSoundVolume = 0.5f;
-    [SerializeField] AudioClip dieSound;
+    [SerializeField] protected AudioClip dieSound;
     [SerializeField] float dieSoundVolume = 0.5f;
 
     [SerializeField] int points = 10;
@@ -21,19 +21,26 @@ public class Health : MonoBehaviour
 
     public virtual void HandleDeath(){}
 
+    public void Awake() {
+        AudioClip loadedHitAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("enemy_hit");
+
+        if (loadedHitAudioClip) {
+            hitSound = loadedHitAudioClip;
+        }
+
+        AudioClip loadedDieAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("enemy_die");
+
+        if (loadedDieAudioClip) {
+            dieSound = loadedDieAudioClip;
+        }
+    }
+
     public void Start() {
         gameSession = FindObjectOfType<GameSession>();
     }
 
     public virtual void TakeDamage(float damageTaken) {
-        print("#### TAKE DAMAGE");
-
-        print("VOOR: " + healthPoints);
-        print("DamageTaken: " + damageTaken);
-        
         healthPoints -= damageTaken;
-
-        print("NA: " + healthPoints);
 
         if (healthPoints <= 0) {
             if (explosionPrefab != null) {
@@ -53,9 +60,6 @@ public class Health : MonoBehaviour
 
             Destroy(gameObject);
         } else {
-            print("AUH!");
-            print("healthPoints left = " + healthPoints);
-
             if (hitSound) {
                 AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, hitSoundVolume);
             }

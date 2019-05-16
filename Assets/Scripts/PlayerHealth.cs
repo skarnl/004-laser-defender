@@ -16,6 +16,22 @@ public class PlayerHealth : Health
         FindObjectOfType<Level>().LoadGameOver();
     }
 
+    void Awake() {
+        base.Awake();
+
+        AudioClip loadedDieAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("player_die");
+
+        if (loadedDieAudioClip) {
+            dieSound = loadedDieAudioClip;
+        }
+
+        AudioClip loadedHitAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("player_hit");
+
+        if (loadedHitAudioClip) {
+            hitSound = loadedHitAudioClip;
+        }
+    }
+
     public void Update() {
         if(damaged && damageImage) {
             // ... set the colour of the damageImage to the flash colour.

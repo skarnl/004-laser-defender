@@ -13,6 +13,14 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] AudioClip shootingSound;
     [SerializeField] float shootingSoundVolume = 0.5f;
 
+    void Awake() {
+        AudioClip loadedAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("enemy_shoot");
+
+        if (loadedAudioClip) {
+            shootingSound = loadedAudioClip;
+        }
+    }
+
     void Start() {
         StartCoroutine(Shoot());
     }
