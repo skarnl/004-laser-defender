@@ -7,7 +7,17 @@ public class BackgroundMusic : Singleton
     public override void Awake() {
         base.Awake();
 
-        StartCoroutine(FadeIn(GetComponent<AudioSource>(), 6.0f));
+        AudioSource audioSource = GetComponent<AudioSource>();
+        
+        AudioClip audioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("background_music.ogg");
+
+        if (audioClip) {
+            audioSource.clip = audioClip;
+        } else {
+            Debug.Log("No suitable audioclip found");
+        }
+
+        StartCoroutine(FadeIn(audioSource, 6.0f));
     }
 
     private IEnumerator FadeIn(AudioSource audioSource, float FadeTime) {
