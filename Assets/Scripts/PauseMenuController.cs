@@ -57,13 +57,19 @@ public class PauseMenuController : MonoBehaviour
     }
 
     void SlowDownGame() {
+        var prevTimeScale = Time.timeScale;
+        Time.timeScale = 1;
         AudioSource.PlayClipAtPoint(slowDownClip, Camera.main.transform.position);
+        Time.timeScale = prevTimeScale;
 
         gameSpeedController.SlowDownGame();
     }
 
     void SpeedUpGame() {
+        var prevTimeScale = Time.timeScale;
+        Time.timeScale = 1;
         AudioSource.PlayClipAtPoint(speedUpClip, Camera.main.transform.position);
+        Time.timeScale = prevTimeScale;
 
         gameSpeedController.SpeedUpGame();
     }

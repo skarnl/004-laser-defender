@@ -35,7 +35,7 @@ public class GameSpeedController : Singleton
                 yield break;
             }
 
-            yield return new WaitForSeconds(duration/steps);
+            yield return new WaitForSecondsRealtime(duration/steps);
         }
     }
 
@@ -51,7 +51,7 @@ public class GameSpeedController : Singleton
                 yield break;
             }
 
-            yield return new WaitForSeconds(duration/steps);
+            yield return new WaitForSecondsRealtime(duration/steps);
         }
     }
 }
