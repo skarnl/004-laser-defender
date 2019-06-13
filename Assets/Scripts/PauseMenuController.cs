@@ -8,10 +8,11 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenu;
     private GameSession gameSession;
-    private Coroutine currentCoroutine;
 
     AudioClip slowDownClip;
     AudioClip speedUpClip;
+
+    GameSpeedController gameSpeedController;
 
     void Awake() {
         AudioLoader audioLoader = FindObjectOfType<AudioLoader>();
@@ -31,6 +32,7 @@ public class PauseMenuController : MonoBehaviour
 
     void Start() {
         gameSession = FindObjectOfType<GameSession>();
+        gameSpeedController = FindObjectOfType<GameSpeedController>();
     }
     
     // Update is called once per frame
@@ -55,55 +57,14 @@ public class PauseMenuController : MonoBehaviour
     }
 
     void SlowDownGame() {
-        if (currentCoroutine != null) {
-            StopCoroutine(currentCoroutine);
-        }
-
         AudioSource.PlayClipAtPoint(slowDownClip, Camera.main.transform.position);
 
-        currentCoroutine = StartCoroutine(SlowDown());
+        gameSpeedController.SlowDownGame();
     }
 
     void SpeedUpGame() {
-        if (currentCoroutine != null) {
-            StopCoroutine(currentCoroutine);
-        }
-
         AudioSource.PlayClipAtPoint(speedUpClip, Camera.main.transform.position);
 
-        currentCoroutine = StartCoroutine(SpeedUp());
-    }
-
-    private IEnumerator SlowDown() {
-        float duration = 0.15f;
-        float steps = 10f;
-        float decreasePerStep = 1/steps;
-        
-        for(var i = 0; i < steps; i++) {
-            Time.timeScale -= decreasePerStep;
-
-            if (Time.timeScale < 0.1) {
-                Time.timeScale = 0;
-                yield break;
-            }
-
-            yield return new WaitForSeconds(duration/steps);
-        }
-    }
-
-    private IEnumerator SpeedUp() {
-        float duration = 0.2f;
-        float steps = 10f;
-        float increasePerStep = 1/steps;
-        
-        for(var i = 0; i < steps; i++) {
-            Time.timeScale += increasePerStep;
-
-            if (Time.timeScale > 1) {
-                yield break;
-            }
-
-            yield return new WaitForSeconds(duration/steps);
-        }
+        gameSpeedController.SpeedUpGame();
     }
 }

@@ -20,11 +20,16 @@ public class Level : MonoBehaviour
     }
 
     public void LoadGameOver() {
+        var gameSpeedController = FindObjectOfType<GameSpeedController>();
+        gameSpeedController.SlowDownGame();
+
         StartCoroutine(LoadGameOverAfterDelay());
     }
 
     private IEnumerator LoadGameOverAfterDelay() {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(3.2f);
+
+        Time.timeScale = 1;
         
         SceneManager.LoadScene("Scenes/2. Game Over");
     }

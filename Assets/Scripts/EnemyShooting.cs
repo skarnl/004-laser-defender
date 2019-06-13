@@ -11,7 +11,7 @@ public class EnemyShooting : MonoBehaviour
 
     [Header("Sound effects")]
     [SerializeField] AudioClip shootingSound;
-    [SerializeField] float shootingSoundVolume = 0.5f;
+    [SerializeField] float shootingSoundVolume = 1f;
 
     void Awake() {
         AudioClip loadedAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("enemy_shoot");
@@ -27,13 +27,13 @@ public class EnemyShooting : MonoBehaviour
 
     IEnumerator Shoot() {
         while(true) {
+            yield return new WaitForSeconds(Random.Range(minShootInterfal, maxShootInterfal));
+
             Instantiate(projectilePrefab, transform.position, transform.rotation);
             
             if (shootingSound) {
                 AudioSource.PlayClipAtPoint(shootingSound, Camera.main.transform.position, shootingSoundVolume);
             }
-
-            yield return new WaitForSeconds(Random.Range(minShootInterfal, maxShootInterfal));
         }
     }
 }

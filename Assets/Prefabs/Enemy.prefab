@@ -69,6 +69,7 @@ MonoBehaviour:
   hitSoundVolume: 0.5
   dieSound: {fileID: 8300000, guid: 9660a83da0a7f4fc7b35bceddad54e3a, type: 3}
   dieSoundVolume: 0.8
+  points: 10
 --- !u!58 &3713102124287307458
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8924214360753031584, guid: eff201ffd5a1a407aab01edc64f2d69f,
     type: 3}
   shootingSound: {fileID: 8300000, guid: 985382e8bf336452da451591f09d0d9b, type: 3}
-  shootingSoundVolume: 0.2
+  shootingSoundVolume: 1
 --- !u!114 &170199613112196363
 MonoBehaviour:
   m_ObjectHideFlags: 0
