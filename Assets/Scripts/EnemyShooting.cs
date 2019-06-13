@@ -11,7 +11,7 @@ public class EnemyShooting : MonoBehaviour
 
     [Header("Sound effects")]
     [SerializeField] AudioClip shootingSound;
-    [SerializeField] float shootingSoundVolume = 1f;
+    float shootingSoundVolume = 1f;
 
     void Awake() {
         AudioClip loadedAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("enemy_shoot");

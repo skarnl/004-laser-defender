@@ -11,7 +11,7 @@ public class PlayerShooting : MonoBehaviour
     
     [Header("Sound effects")]
     [SerializeField] AudioClip shootingSound;
-    [SerializeField] float shootingSoundVolume = 0.5f;
+    float shootingSoundVolume = 1f;
 
     Coroutine firingCoroutine;
     AudioSource audioSource;
