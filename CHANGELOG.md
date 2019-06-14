@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2019-06-13
+### Added
+- Slowdown the game when player dies
+
+### Changed
+- Tweak time between player death and game-over screen (so the player_die sound will finish playing)
+
+### Fixed
+- Fix enemy shoot timing, so when the game starts the isn't an immediate enemy shooting sound played
+- Fix timing for coroutine, so the speedup timescale doesn't influence the speed_up sound (this wasn't being played correctly)
+
 ## [1.0.0] - 2019-04-29
 ### Added
 - Add background music (by RQ)
