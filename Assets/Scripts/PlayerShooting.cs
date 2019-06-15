@@ -15,6 +15,9 @@ public class PlayerShooting : MonoBehaviour
 
     Coroutine firingCoroutine;
     AudioSource audioSource;
+    PlayerMovement playerMovement;
+
+    bool shootingLasers = false;
 
     void Awake() {
         AudioClip loadedAudioClip = FindObjectOfType<AudioLoader>().GetAudioClipByName("player_shoot");
@@ -26,6 +29,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Start() {
         audioSource = GetComponent<AudioSource>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Update(){
@@ -33,16 +37,22 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void CheckInputForFiring() {
-        if (Input.GetButtonDown("Fire1")) {
+        //if (Input.GetButtonDown("Fire1")) {
+        if (playerMovement.isMoving && shootingLasers == false) {
             firingCoroutine = StartCoroutine(ShootLaserAfterWait());
-        }
-        if (Input.GetButtonUp("Fire1")) {
+
+            shootingLasers = true;
+        } 
+        
+        if (!playerMovement.isMoving && shootingLasers == true) {
             StopCoroutine(firingCoroutine);
+
+            shootingLasers = false;
         }
     }
 
     IEnumerator ShootLaserAfterWait() {
-        while (Input.GetButton("Fire1")) {
+        while (true) {
             ShootLaser();
             yield return new WaitForSeconds(firingRate);
         }

@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     float RIGHT_BOUNDARY;
     float BOTTOM_BOUNDARY;
 
+    public bool isMoving = false;
+
     void Awake() {
         Camera camera = Camera.main;
 
@@ -40,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
         float horizontalMovement = Mathf.Clamp(newX, LEFT_BOUNDARY, RIGHT_BOUNDARY);
         float verticalMovement = Mathf.Clamp(newY, BOTTOM_BOUNDARY, TOP_BOUNDARY);
+
+        isMoving = Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f;
 
         transform.position = new Vector2(horizontalMovement, verticalMovement);
     }
