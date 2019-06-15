@@ -14,7 +14,7 @@ public class BackgroundMusic : Singleton
         if (audioClip) {
             audioSource.clip = audioClip;
         } else {
-            Debug.Log("No suitable audioclip found");
+            Debug.LogError("No suitable audioclip found");
         }
 
         StartCoroutine(FadeIn(audioSource, 6.0f));

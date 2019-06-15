@@ -27,7 +27,6 @@ public class AudioLoader : Singleton {
     {
         path = Application.persistentDataPath;
         
-        Debug.Log("path = " + path);
         debugTextfield.text = path;
      
         if (Directory.Exists(path))
@@ -36,8 +35,6 @@ public class AudioLoader : Singleton {
          
             foreach (FileInfo item in info.GetFiles("*" + EXTENSION))
             {
-                Debug.Log(item.Name + " file found!");
-
                 audioFilenames.Add(item.Name);
             }
          
@@ -55,16 +52,14 @@ public class AudioLoader : Singleton {
             yield return AudioFiles.SendWebRequest();
             if(AudioFiles.isNetworkError)
             {
-                Debug.Log(AudioFiles.error);
-                Debug.Log(path + string.Format("/{0} FAILED TO LOAD", fileName));
+                Debug.LogError(AudioFiles.error);
+                Debug.LogError(path + string.Format("/{0} FAILED TO LOAD", fileName));
             }
             else
             {
                 AudioClip clip = DownloadHandlerAudioClip.GetContent(AudioFiles);
                 clip.name = fileName;
                 audioClips.Add(clip.name, clip);
-                
-                Debug.Log(path + string.Format("/{0} LOADED", fileName));
             }
         }
 
@@ -83,12 +78,11 @@ public class AudioLoader : Singleton {
         //we need to add the extension, since we want to be able to change that
         name += EXTENSION;
 
-        Debug.Log("Requested: " + name);
 
         if(audioClips.ContainsKey(name)) {
             return audioClips[name];
         } else {
-            Debug.Log(name + " - not found");
+            Debug.LogError("Requested: " + name + ", but was NOT FOUND!");
 
             return null;
         }

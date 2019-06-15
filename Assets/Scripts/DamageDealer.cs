@@ -8,9 +8,6 @@ public class DamageDealer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        print(gameObject.tag);
-        print(other.tag);
-
         // bail if the collision is the wrong way (enemy with laser)
         if ( gameObject.tag == "Enemy" && other.tag == "Laser" ) {
             return;

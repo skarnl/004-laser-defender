@@ -48,8 +48,6 @@ public class EnemySpawner : MonoBehaviour
             return 0;
         });
 
-        PrintDebug();
-
         do {
             yield return StartCoroutine(SpawnActiveWave());
         } while (looping);
@@ -119,17 +117,12 @@ public class EnemySpawner : MonoBehaviour
          */
         var currentActiveWave = activeWaves.First();
         
-        print("CURRENT:                                         " + currentActiveWave);
-
         SpawnEnemy(currentActiveWave.waveConfiguration);
 
         currentActiveWave.enemiesToSpawn -= 1;
         currentActiveWave.lastSpawnTime = Time.time;
 
-        print("ENEMIES LEFT: " + currentActiveWave.enemiesToSpawn);
-
         if (currentActiveWave.enemiesToSpawn == 0) {
-            print("REMOVE:                   " + currentActiveWave);
             activeWaves.RemoveAt(0);
         }
 
@@ -153,8 +146,6 @@ public class EnemySpawner : MonoBehaviour
                 var wave = MakeActiveWave(GetRandomWave());
 
                 activeWaves.Add( wave ) ;
-
-                print("ADD:                 " + wave);
             }
         }
     }
@@ -166,14 +157,5 @@ public class EnemySpawner : MonoBehaviour
         EnemyPathing enemyController = enemy.GetComponent<EnemyPathing>();
         enemyController.SetWaypoints(waypoints);
         enemyController.SetMovementSpeed(waveConfiguration.GetMovementSpeed());
-    }
-
-    private void PrintDebug() {
-        print("========  ActiveWave configuratie ========= ");
-        foreach (var item in activeWaves)
-        {
-            print(item.waveConfiguration.GetTitle() + " | " + item.lastSpawnTime + " | " + item.waveConfiguration.GetTimeBetweenSpawns() + " | " + (item.lastSpawnTime + item.waveConfiguration.GetTimeBetweenSpawns()) );
-        }
-        print("============================================");
     }
 }

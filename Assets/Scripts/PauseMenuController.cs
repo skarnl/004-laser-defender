@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class PauseMenuController : Singleton
+public class PauseMenuController : MonoBehaviour
 {
     [SerializeField]
     private GameObject pauseMenu;
@@ -31,8 +31,6 @@ public class PauseMenuController : Singleton
     }
 
     void Start() {
-        Debug.Log("################  Start PauzeMenuController");
-
         gameSession = FindObjectOfType<GameSession>();
     }
     
