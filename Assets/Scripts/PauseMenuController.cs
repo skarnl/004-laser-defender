@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class PauseMenuController : MonoBehaviour
+public class PauseMenuController : Singleton
 {
     [SerializeField]
     private GameObject pauseMenu;
@@ -31,8 +31,9 @@ public class PauseMenuController : MonoBehaviour
     }
 
     void Start() {
+        Debug.Log("################  Start PauzeMenuController");
+
         gameSession = FindObjectOfType<GameSession>();
-        gameSpeedController = FindObjectOfType<GameSpeedController>();
     }
     
     // Update is called once per frame
@@ -62,7 +63,7 @@ public class PauseMenuController : MonoBehaviour
         AudioSource.PlayClipAtPoint(slowDownClip, Camera.main.transform.position);
         Time.timeScale = prevTimeScale;
 
-        gameSpeedController.SlowDownGame();
+        FindObjectOfType<GameSpeedController>().SlowDownGame();
     }
 
     void SpeedUpGame() {
@@ -71,6 +72,6 @@ public class PauseMenuController : MonoBehaviour
         AudioSource.PlayClipAtPoint(speedUpClip, Camera.main.transform.position);
         Time.timeScale = prevTimeScale;
 
-        gameSpeedController.SpeedUpGame();
+        FindObjectOfType<GameSpeedController>().SpeedUpGame();
     }
 }
