@@ -20,8 +20,8 @@ public class AudioLoader : Singleton {
  
     List<string> audioFilenames = new List<string>();
 
-    string EXTENSION = ".ogg";
-    AudioType AUDIO_TYPE = AudioType.OGGVORBIS;
+    string EXTENSION = ".wav";
+    AudioType AUDIO_TYPE = AudioType.WAV;
  
     void Start ()
     {
