@@ -1,0 +1,41 @@
+﻿<Properties StartupConfiguration="{FD4A65F0-183F-9B01-6FDD-D96D34E458E6}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/EnemySpawner.cs">
+    <Files>
+      <File FileName="Assets/Scripts/GameSpeedController.cs" Line="5" Column="22" />
+      <File FileName="Assets/Scripts/Singleton.cs" Line="5" Column="14" />
+      <File FileName="Assets/Scripts/Level.cs" Line="23" Column="52" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayerShooting.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ScoreDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/WaitForSecondsRealtime.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/WaveConfiguration.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/EnemySpawner.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DamageDealer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BoundaryCheck.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BackgroundScroller.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BackgroundMusic.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/AudioLoader.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameSession.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Laser Defender" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="EnemySpawner.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="60c15d4d-0e99-44b6-88f7-c68e1e450b68" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
