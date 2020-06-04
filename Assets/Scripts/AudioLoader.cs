@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
 using TMPro;
- 
+using System;
+
 public class AudioLoader : Singleton {
  
     [SerializeField]
     TextMeshProUGUI debugTextfield;
     [SerializeField]
     TextMeshProUGUI loadingTextfield;
+
+    [SerializeField]
+    List<AudioClip> clips = new List<AudioClip>();
 
     string path;
     Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
@@ -25,23 +29,50 @@ public class AudioLoader : Singleton {
  
     void Start ()
     {
+        SetupAudioClips();
+
+        //StartLoadingExternalAudioClips();
+    }
+
+    void SetupAudioClips ()
+    {
+        debugTextfield.text = "";
+
+        for (int i = 0; i < clips.Count; i++) {
+            AudioClip clip = clips[i];
+
+            Debug.Log(clip.name);
+
+            audioClips.Add(clip.name + EXTENSION, clip);
+        }
+
+
+        loadingTextfield.text = "Done loading. Press a key to continue";
+        loading = false;
+    }
+
+    /**
+     * Kickstart the loading of the external audioclips
+     */
+    private void StartLoadingExternalAudioClips()
+    {
         path = Application.persistentDataPath;
         
         debugTextfield.text = path;
-     
+        
         if (Directory.Exists(path))
-        {
+                    {
             DirectoryInfo info = new DirectoryInfo(path);
-         
+            
             foreach (FileInfo item in info.GetFiles("*" + EXTENSION))
             {
                 audioFilenames.Add(item.Name);
             }
-         
+            
         }
         StartCoroutine(LoadAudioFile());
     }
- 
+
     IEnumerator LoadAudioFile()
     {
         for (int i = 0; i <audioFilenames.Count; i++)
